@@ -124,6 +124,7 @@ Next, we need to make a wildcard dns entry for pihole.
 `sudo firewall-cmd --reload`
 
 - Test Apache
+\
 `curl localhost:8080`
 
   
