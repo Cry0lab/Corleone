@@ -3,7 +3,7 @@ Original instructions for setup found here: https://itnext.io/guide-installing-a
 This setup assumes you already have some method of providing DHCP and DNS to your environment. In this case, a Unifi USG Firewall is being used for DHCP along with a PiHole server for DNS.
 cryolab.tech will be the domain I use, but use whatever domain your DHCP/DNS server is already set up for.
 
-## Table of Contents
+# Table of Contents
 
 - [VM Overview](#VM-Overview)
 - [Creating The VMs](#Creating-The-VMs)
@@ -12,7 +12,7 @@ cryolab.tech will be the domain I use, but use whatever domain your DHCP/DNS ser
 - [Learning Goals](#learning-goals)
 - [API Information](#api-information)
 
-## VM Overview
+# VM Overview
 
 A total of at least 7 VMs will need to be created, not including a NFS server, DNS, and DHCP server, all of which I have already built seperately.
 
