@@ -20,46 +20,46 @@ cryolab.tech will be the domain I use, but use whatever domain your DHCP/DNS ser
 A total of at least 7 VMs will need to be created, not including a NFS server, DNS, and DHCP server, all of which I have already built seperately.
 
 ## Bootstrap Node
-- Name: bootstrap.cryolab.tech
-- OS: CoreOS
-- vCPU: 4
-- RAM: 16 GB
-- Storage: 120 GB
-- IP Address: 192.168.1.29
+> Name: bootstrap.cryolab.tech\
+> OS: CoreOS\
+> vCPU: 4\
+> RAM: 16 GB\
+> Storage: 120 GB\
+> IP Address: 192.168.1.29
 
 ## Control Nodes - Make 3 of these
-- Name: vito-{1..3}.cryolab.tech
-- OS: CoreOS
-- vCPU: 4
-- RAM: 16 GB
-- Storage: 120 GB
-- IP Addresses: 192.168.1.31-33
+> Name: vito-{1..3}.cryolab.tech\
+> OS: CoreOS\
+> vCPU: 4\
+> RAM: 16 GB\
+> Storage: 120 GB\
+> IP Addresses: 192.168.1.31-33
 
 ## Worker Nodes: - Make 2 of these
-- Name: tessio.cryolab.tech, clemenza.cryolab.tech
-- OS: CoreOS
-- vCPU: 4
-- RAM: 16 GB
-- Storage: 120 GB
-- IP Address: 192.168.1.34-35
+> Name: tessio.cryolab.tech, clemenza.cryolab.tech\
+> OS: CoreOS\
+> vCPU: 4\
+> RAM: 16 GB\
+> Storage: 120 GB\
+> IP Address: 192.168.1.34-35
 
 ## Services Node:
-- Name: Hagen 
-- OS: Rocky Linux or other RHEL derivative
-- vCPU: 4
-- RAM: 4 GB
-- Storage: 100 GB
-- IP Address: 192.168.1.30
+> Name: Hagen\
+> OS: Rocky Linux or other RHEL derivative\
+> vCPU: 4\
+> RAM: 4 GB\
+> Storage: 100 GB\
+> IP Address: 192.168.1.30
 
 # Creating The VMs
 
 ### Services Node
 Fully install the OS on the services node, Hagen. Ensure to add the ip address and hostname manually during setup.\
 \
-After the install is complete, install the epel-release repo.
-> sudo dnf install -y epel-release\
-> sudo dnf update -y\
-> sudo systemctl restart
+After the install is complete, install the epel-release repo.\
+`sudo dnf install -y epel-release`\
+`sudo dnf update -y`\
+`sudo systemctl restart`
 
 # All other nodes:
 For all other nodes, aka Control plane, worker and bootstrap nodes, setup the VMs in VMware. \
@@ -92,30 +92,38 @@ Next, we need to make a wildcard dns entry for pihole.
 - `systemctl restart pihole-FTL`
 
 # Configure Services Node
-- ssh into Hagen as root
-> `cd ~`\
-> `git clone https://github.com/Cry0lab/Corleone.git`\
-> `cd okd4_files`
-- Install Haproxy
-> sudo dnf install haproxy -y\
-- Copy haproxy.cfg from okd4_files
-> `sudo cp haproxy.cfg /etc/haproxy/haproxy.cfg`\
-> `sudo setsebool -P haproxy_connect_any 1`\
-> `sudo systemctl enable --now haproxy`\
-> `sudo systemctl status haproxy`
+- ssh into Hagen as root\
+`cd ~`\
+`git clone https://github.com/Cry0lab/Corleone.git`\
+`cd okd4_files`
+
+- Install Haproxy\
+`sudo dnf install haproxy -y`
+
+- Copy haproxy.cfg from okd4_files\
+`sudo cp haproxy.cfg /etc/haproxy/haproxy.cfg`\
+`sudo setsebool -P haproxy_connect_any 1`\
+`sudo systemctl enable --now haproxy`\
+`sudo systemctl status haproxy`
+
 - Firewall rules
-> `sudo firewall-cmd --permanent --add-port=6443/tcp`\
-> `sudo firewall-cmd --permanent --add-port=22623/tcp`\
-> `sudo firewall-cmd --permanent --add-service=http`\
-> `sudo firewall-cmd --permanent --add-service=https`\
-> `sudo firewall-cmd --reload`
+\
+`sudo firewall-cmd --permanent --add-port=6443/tcp`\
+`sudo firewall-cmd --permanent --add-port=22623/tcp`\
+`sudo firewall-cmd --permanent --add-service=http`\
+`sudo firewall-cmd --permanent --add-service=https`\
+`sudo firewall-cmd --reload`
+
 - Install Apache/HTTPD
-> `sudo dnf install -y httpd`\
-> `sudo sed -i 's/Listen 80/Listen 8080/' /etc/httpd/conf/httpd.conf`\
-> `sudo setsebool -P httpd_read_user_content 1`\
-> `sudo systemctl enable --now httpd`\
-> `sudo firewall-cmd --permanent --add-port=8080/tcp`\
-> `sudo firewall-cmd --reload`
+\
+`sudo dnf install -y httpd`\
+`sudo sed -i 's/Listen 80/Listen 8080/' /etc/httpd/conf/httpd.conf`\
+`sudo setsebool -P httpd_read_user_content 1`\
+`sudo systemctl enable --now httpd`\
+`sudo firewall-cmd --permanent --add-port=8080/tcp`\
+`sudo firewall-cmd --reload`
+
 - Test Apache
-> `curl localhost:8080`
+`curl localhost:8080`
+
   
