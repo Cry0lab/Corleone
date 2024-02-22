@@ -8,39 +8,38 @@ VM Overview
 
 Bootstrap Node
 
-Name: bootstrap.cryolab.tech
-OS: CoreOS
-vCPU: 4
-RAM: 16 GB
-Storage: 120 GB
+Name: bootstrap.cryolab.tech\
+OS: CoreOS\
+vCPU: 4\
+RAM: 16 GB\
+Storage: 120 GB\
 IP Address: 192.168.1.29
 
 Control Nodes - Make 3 of these
 
-Name: vito-{1..3}.cryolab.tech
-OS: CoreOS
-vCPU: 4
-RAM: 16 GB
-Storage: 120 GB
+Name: vito-{1..3}.cryolab.tech\
+OS: CoreOS\
+vCPU: 4\
+RAM: 16 GB\
+Storage: 120 GB\
 IP Addresses: 192.168.1.31-33
 
 Worker Nodes: - Make 2 of these
 
-Name: tessio.cryolab.tech
-      clemenza.cryolab.tech
-OS: CoreOS
-vCPU: 4
-RAM: 16 GB
-Storage: 120 GB
+Name:tessio.cryolab.tech, clemenza.cryolab.tech\
+OS: CoreOS\
+vCPU: 4\
+RAM: 16 GB\
+Storage: 120 GB\
 IP Address: 192.168.1.34-35
 
 Services Node:
 
-Name: Hagen 
-OS: Rocky Linux or other RHEL derivative
-vCPU: 4
-RAM: 4 GB
-Storage: 100 GB
+Name: Hagen \
+OS: Rocky Linux or other RHEL derivative\
+vCPU: 4\
+RAM: 4 GB\
+Storage: 100 GB\
 IP Address: 192.168.1.30
 
 
