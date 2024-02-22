@@ -7,6 +7,9 @@ cryolab.tech will be the domain I use, but use whatever domain your DHCP/DNS ser
 
 - [VM Overview](#VM-Overview)
 - [Creating The VMs](#Creating-The-VMs)
+- [DHCP](#DHCP)
+- [DNS](#DNS)
+- [Tech Stack](#tech-stack)
 - [Tech Stack](#tech-stack)
 - [Setup and Installation](#setup-and-installation)
 - [Learning Goals](#learning-goals)
@@ -33,7 +36,7 @@ A total of at least 7 VMs will need to be created, not including a NFS server, D
 - IP Addresses: 192.168.1.31-33
 
 ## Worker Nodes: - Make 2 of these
-- Name:tessio.cryolab.tech, clemenza.cryolab.tech
+- Name: tessio.cryolab.tech, clemenza.cryolab.tech
 - OS: CoreOS
 - vCPU: 4
 - RAM: 16 GB
@@ -50,16 +53,43 @@ A total of at least 7 VMs will need to be created, not including a NFS server, D
 
 # Creating The VMs
 
-Services Node
-    Fully install the OS on the services node, Hagen. Ensure to add the ip address and hostname manually during setup.
-    After the install is complete, install the epel-release repo.
-      sudo dnf install -y epel-release
-      sudo dnf update -y
-      sudo systemctl restart
+### Services Node
+Fully install the OS on the services node, Hagen. Ensure to add the ip address and hostname manually during setup.\
+\
+After the install is complete, install the epel-release repo.
+> sudo dnf install -y epel-release\
+> sudo dnf update -y\
+> sudo systemctl restart
 
-  All other nodes:
-    For all other nodes, aka Control plane, worker and bootstrap nodes, setup the VMs in VMware. Be sure to mount the CoreOS iso to boot from later. 
-    Boot each one up into the live disc then shut them down. This will allow VMWare to assign Mac Addresses to each for the next step.
+# All other nodes:
+For all other nodes, aka Control plane, worker and bootstrap nodes, setup the VMs in VMware. \
+Be sure to mount the CoreOS iso to boot from later. \
+Boot each one up into the live disc then shut them down. This will allow VMWare to assign Mac Addresses to each for the next step.
+
+# DHCP
+
+- Ensure DHCP assigns the PiHole server for DNS.
+- In 'Client Devices', add a new client with a fixed IP Address for each of the control, worker and bootstrap nodes, grabbing the Mac Addresses from VMWare.
+
+# DNS
+In pihole, add the following entries:
+| hostname | IP Address |
+|--------------------------------------- |:-------------|
+| hagen.cryolab.tech | 192.168.1.30|
+| api-int.lab.cryolab.tech | 192.168.1.30|
+| api.lab.cryolab.tech | 192.168.1.30|
+| oauth-openshift.apps.lab.cryolab.tech | 192.168.1.30|
+| console-openshift-console.apps.lab.cryolab.tech | 192.168.1.30|
+| vito-1.cryolab.tech | 192.168.1.31|
+| vito-2.cryolab.tech | 192.168.1.32|
+| vito-3.cryolab.tech | 192.168.1.33|
+| tessio.cryolab.tech | 192.168.1.34|
+| clemenza.cryolab.tech | 192.168.1.35|
+| bootstrap.cryolab.tech | 192.168.1.29|
+
+Next, we need to make a wildcard dns entry for pihole.
+- Copy 02-corleone-wildcard-dns.conf to /etc/dnsmasq.d/ on the pihole server. This will provide the wildcard of *.apps..lab.cryolab.tech
+- `systemctl restart pihole-FTL`
 
 ## Schema
 
@@ -161,37 +191,7 @@ Does not need an API key
       
 
 
-# Corleone
 
-
-VM Overview
-
-
-
-
-
-DHCP
-
-Ensure DHCP assigns the PiHole server for DNS.
-In 'Client Devices', add a new client with a fixed IP Address for each of the control, worker and bootstrap nodes, grabbing the Mac Addresses from VMWare.
-
-DNS
-In pihole, add the following entries:
-  hagen.cryolab.tech  192.168.1.30
-  api-int.lab.cryolab.tech  192.168.1.30
-  api.lab.cryolab.tech  192.168.1.30
-  oauth-openshift.apps.lab.cryolab.tech  192.168.1.30
-  console-openshift-console.apps.lab.cryolab.tech 192.168.1.30
-  vito-1.cryolab.tech  192.168.1.31
-  vito-2.cryolab.tech  192.168.1.32
-  vito-3.cryolab.tech  192.168.1.33
-  tessio.cryolab.tech  192.168.1.34
-  clemenza.cryolab.tech  192.168.1.35
-  bootstrap.cryolab.tech 192.168.1.29
-
-Next, we need to make a wildcard dns entry for pihole.
-  Copy 02-corleone-wildcard-dns.conf to /etc/dnsmasq.d/ on the pihole server. This will provide the wildcard of *.apps..lab.cryolab.tech
-  systemctl restart pihole-FTL
 
 CONFIGURE HAGEN (Services Node)
 
