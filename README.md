@@ -10,10 +10,6 @@ cryolab.tech will be the domain I use, but use whatever domain your DHCP/DNS ser
 - [DHCP](#DHCP)
 - [DNS](#DNS)
 - [Configure Services Node](#Configure-Services-Node)
-- [Tech Stack](#tech-stack)
-- [Setup and Installation](#setup-and-installation)
-- [Learning Goals](#learning-goals)
-- [API Information](#api-information)
 
 # VM Overview
 
