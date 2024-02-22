@@ -16,7 +16,7 @@ cryolab.tech will be the domain I use, but use whatever domain your DHCP/DNS ser
 
 A total of at least 7 VMs will need to be created, not including a NFS server, DNS, and DHCP server, all of which I have already built seperately.
 
-# Bootstrap Node
+## Bootstrap Node
 - Name: bootstrap.cryolab.tech
 - OS: CoreOS
 - vCPU: 4
@@ -24,7 +24,7 @@ A total of at least 7 VMs will need to be created, not including a NFS server, D
 - Storage: 120 GB
 - IP Address: 192.168.1.29
 
-Control Nodes - Make 3 of these
+## Control Nodes - Make 3 of these
 - Name: vito-{1..3}.cryolab.tech
 - OS: CoreOS
 - vCPU: 4
@@ -32,7 +32,7 @@ Control Nodes - Make 3 of these
 - Storage: 120 GB
 - IP Addresses: 192.168.1.31-33
 
-Worker Nodes: - Make 2 of these
+## Worker Nodes: - Make 2 of these
 - Name:tessio.cryolab.tech, clemenza.cryolab.tech
 - OS: CoreOS
 - vCPU: 4
@@ -40,7 +40,7 @@ Worker Nodes: - Make 2 of these
 - Storage: 120 GB
 - IP Address: 192.168.1.34-35
 
-Services Node:
+## Services Node:
 - Name: Hagen 
 - OS: Rocky Linux or other RHEL derivative
 - vCPU: 4
@@ -48,7 +48,7 @@ Services Node:
 - Storage: 100 GB
 - IP Address: 192.168.1.30
 
-## Creating The VMs
+# Creating The VMs
 
 Services Node
     Fully install the OS on the services node, Hagen. Ensure to add the ip address and hostname manually during setup.
