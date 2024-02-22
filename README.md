@@ -6,7 +6,7 @@ cryolab.tech will be the domain I use, but use whatever domain your DHCP/DNS ser
 ## Table of Contents
 
 - [VM Overview](#VM-Overview)
-- [Schema](#schema)
+- [Creating The VMs](#Creating-The-VMs)
 - [Tech Stack](#tech-stack)
 - [Setup and Installation](#setup-and-installation)
 - [Learning Goals](#learning-goals)
@@ -14,8 +14,52 @@ cryolab.tech will be the domain I use, but use whatever domain your DHCP/DNS ser
 
 ## VM Overview
 
+A total of at least 7 VMs will need to be created, not including a NFS server, DNS, and DHCP server, all of which I have already built seperately.
 
-This is the backend service for an application called Lunch n Learn. Lunch and Learn allows users to find recipes around the world and learn about different countries. When a user creates an account, they are able to save recipes to their favorites for later enjoyment. This project was completed as part of the backend curriculum at Turing School of Software and Design. At this time there is no frontend built.
+# Bootstrap Node
+- Name: bootstrap.cryolab.tech
+- OS: CoreOS
+- vCPU: 4
+- RAM: 16 GB
+- Storage: 120 GB
+- IP Address: 192.168.1.29
+
+Control Nodes - Make 3 of these
+- Name: vito-{1..3}.cryolab.tech
+- OS: CoreOS
+- vCPU: 4
+- RAM: 16 GB
+- Storage: 120 GB
+- IP Addresses: 192.168.1.31-33
+
+Worker Nodes: - Make 2 of these
+- Name:tessio.cryolab.tech, clemenza.cryolab.tech
+- OS: CoreOS
+- vCPU: 4
+- RAM: 16 GB
+- Storage: 120 GB
+- IP Address: 192.168.1.34-35
+
+Services Node:
+- Name: Hagen 
+- OS: Rocky Linux or other RHEL derivative
+- vCPU: 4
+- RAM: 4 GB
+- Storage: 100 GB
+- IP Address: 192.168.1.30
+
+## Creating The VMs
+
+Services Node
+    Fully install the OS on the services node, Hagen. Ensure to add the ip address and hostname manually during setup.
+    After the install is complete, install the epel-release repo.
+      sudo dnf install -y epel-release
+      sudo dnf update -y
+      sudo systemctl restart
+
+  All other nodes:
+    For all other nodes, aka Control plane, worker and bootstrap nodes, setup the VMs in VMware. Be sure to mount the CoreOS iso to boot from later. 
+    Boot each one up into the live disc then shut them down. This will allow VMWare to assign Mac Addresses to each for the next step.
 
 ## Schema
 
@@ -122,54 +166,9 @@ Does not need an API key
 
 VM Overview
 
-Bootstrap Node
-
-Name: bootstrap.cryolab.tech\
-OS: CoreOS\
-vCPU: 4\
-RAM: 16 GB\
-Storage: 120 GB\
-IP Address: 192.168.1.29
-
-Control Nodes - Make 3 of these
-
-Name: vito-{1..3}.cryolab.tech\
-OS: CoreOS\
-vCPU: 4\
-RAM: 16 GB\
-Storage: 120 GB\
-IP Addresses: 192.168.1.31-33
-
-Worker Nodes: - Make 2 of these
-
-Name:tessio.cryolab.tech, clemenza.cryolab.tech\
-OS: CoreOS\
-vCPU: 4\
-RAM: 16 GB\
-Storage: 120 GB\
-IP Address: 192.168.1.34-35
-
-Services Node:
-
-Name: Hagen \
-OS: Rocky Linux or other RHEL derivative\
-vCPU: 4\
-RAM: 4 GB\
-Storage: 100 GB\
-IP Address: 192.168.1.30
 
 
-CREATING THE VMS
-  Services Node
-    Fully install the OS on the services node, Hagen. Ensure to add the ip address and hostname manually during setup.
-    After the install is complete, install the epel-release repo.
-      sudo dnf install -y epel-release
-      sudo dnf update -y
-      sudo systemctl restart
 
-  All other nodes:
-    For all other nodes, aka Control plane, worker and bootstrap nodes, setup the VMs in VMware. Be sure to mount the CoreOS iso to boot from later. 
-    Boot each one up into the live disc then shut them down. This will allow VMWare to assign Mac Addresses to each for the next step.
 
 DHCP
 
