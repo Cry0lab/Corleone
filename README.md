@@ -1,3 +1,8 @@
+Original instructions for setup found here: https://itnext.io/guide-installing-an-okd-4-5-cluster-508a2631cbee 
+
+This setup assumes you already have some method of providing DHCP and DNS to your environment. In this case, a Unifi USG Firewall is being used for DHCP along with a PiHole server for DNS.
+cryolab.tech will be the domain I use, but use whatever domain your DHCP/DNS server is already set up for.
+
 ## Table of Contents
 
 - [VM Overview](#VM-Overview)
@@ -113,10 +118,7 @@ Does not need an API key
 
 
 # Corleone
-Original instructions for setup found here: https://itnext.io/guide-installing-an-okd-4-5-cluster-508a2631cbee 
 
-This setup assumes you already have some method of providing DHCP and DNS to your environment. In this case, a Unifi USG Firewall is being used for DHCP along with a PiHole server for DNS.
-cryolab.tech will be the domain I use, but use whatever domain your DHCP/DNS server is already set up for.
 
 VM Overview
 
